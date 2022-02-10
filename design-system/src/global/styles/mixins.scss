@@ -1,0 +1,60 @@
+@mixin reddit-input {
+  padding: 0 1em;
+  font-weight: lighter;
+  background-color: #f6f7f8;
+  border: 1px solid #edeff1;
+  border-radius: 0.25em;
+
+  &:focus,
+  &:hover {
+    background-color: transparent;
+    border-color: $secondary;
+    outline: none;
+  }
+}
+
+@mixin reddit-button($bg-color: $secondary, $color: white, $border-color: $secondary) {
+  padding: 0.3em 0.75em;
+  color: $color;
+  background-color: $bg-color;
+  border: none;
+  border: 1px solid $border-color;
+  border-radius: 1000px;
+
+  &::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: $color;
+    border-radius: inherit;
+    content: '';
+  }
+
+  &:hover {
+    position: relative;
+    outline: none;
+    cursor: pointer;
+
+    &::before {
+      width: 100%;
+      height: 100%;
+      opacity: 0.16;
+    }
+  }
+
+  &:active,
+  &:focus-visible {
+    outline: none;
+
+    &::before {
+      width: 100%;
+      height: 100%;
+      opacity: 0.24;
+    }
+  }
+}
+
+@mixin reddit-card($border-color: #ccc) {
+  border: 1px solid $border-color;
+  border-radius: 0.15em;
+}

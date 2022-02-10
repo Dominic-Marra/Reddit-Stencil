@@ -1,0 +1,282 @@
+:host {
+  display: block;
+  color: $color;
+  font-family: $font;
+}
+
+.post-card {
+  @include reddit-card();
+  display: grid;
+  grid-template-columns: 5em 1fr;
+  overflow: auto;
+  background-color: rgba(255, 255, 255, 0.8);
+
+  &:hover {
+    border-color: #898989;
+    cursor: pointer;
+  }
+
+  &:focus {
+    outline-color: #898989;
+  }
+
+  button {
+    display: inline-flex;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    border-radius: 0.15em;
+
+    i {
+      line-height: 0;
+    }
+
+    &:hover,
+    &:focus,
+    &:focus-within {
+      background-color: rgb(26 26 27 / 10%);
+      outline: none;
+      cursor: pointer;
+    }
+  }
+
+  .left {
+    padding: 0.5em;
+    background-color: white;
+  }
+
+  article {
+    &.text {
+      max-height: 15em;
+    }
+
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      font-size: 0.9em;
+
+      h2 {
+        margin: 0.25em 0;
+      }
+
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0.25em;
+        padding: 0 1em;
+        font-size: 0.9em;
+        list-style: none;
+
+        .tag {
+          margin: 0.25em;
+          padding: 0.35em 1em;
+          background-color: #edeff1;
+          border-radius: 1000px;
+        }
+      }
+    }
+
+    .body {
+      position: relative;
+
+      &.text {
+        max-height: 15em;
+        overflow: hidden;
+
+        &::after {
+          position: absolute;
+          bottom: 0;
+          width: 100%;
+          height: 5em;
+          background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+          content: '';
+        }
+      }
+    }
+  }
+
+  .top-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    color: #898989;
+    font-size: 0.8em;
+
+    p {
+      margin: 0.5em;
+
+      &:first-of-type {
+        display: flex;
+        align-items: center;
+        margin-left: 0;
+        color: $color;
+      }
+    }
+
+    .sub {
+      img {
+        width: 1.5em;
+        height: 1.5em;
+        margin-right: 0.5em;
+        border-radius: 50%;
+      }
+    }
+
+    .awards {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+
+      .award {
+        display: flex;
+        align-items: center;
+        margin: 0.25em;
+
+        img {
+          width: 1.25em;
+          height: 1.25em;
+          margin-right: 0.25em;
+        }
+
+        tool-tip {
+          z-index: 1000;
+          box-sizing: border-box;
+          width: 18em;
+          max-width: 100%;
+          margin: 0.5em 0;
+          padding: 1em;
+          color: $color;
+          font-family: $font;
+          text-align: center;
+          background: linear-gradient($secondary calc(32px + 0.5em), white calc(32px + 0.5em));
+          border-radius: 0.25em;
+          box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.15);
+
+          img {
+            display: block;
+            width: 32px;
+            height: 32px;
+            margin: 0 auto 1em;
+          }
+
+          h2 {
+            margin: 0 0 0.5em;
+          }
+
+          p {
+            margin-top: 0;
+          }
+
+          a {
+            color: $secondary;
+            text-decoration: none;
+
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+
+          &::after {
+            position: absolute;
+            left: 50%;
+            width: 1em;
+            height: 1em;
+            transform: translateX(-50%) rotate(45deg);
+            content: '';
+          }
+
+          &.bottom::after {
+            top: -0.5em;
+            background-color: $secondary;
+          }
+
+          &.top::after {
+            bottom: -0.5em;
+            background-color: white;
+          }
+        }
+      }
+    }
+
+    .sub-btn {
+      @include reddit-button();
+      margin-left: auto;
+    }
+  }
+
+  .bottom-bar {
+    padding: 0.5em 0 0;
+    color: #898989;
+
+    .sub-menu-button {
+      margin: 0.5em;
+      padding: 0.5em 0.75em;
+      color: inherit;
+
+      .sub-menu {
+        @include reddit-card(#edeff1);
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        background-color: white;
+        box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+
+        li {
+          padding: 1em;
+          text-align: left;
+
+          &:hover {
+            background-color: #e9f5fd;
+          }
+        }
+
+        li:not(:last-of-type) {
+          border-bottom: 1px solid #edeff1;
+        }
+      }
+
+      svg {
+        stroke: #898989;
+      }
+
+      &:not(:last-of-type) svg {
+        margin-right: 0.5em;
+      }
+    }
+  }
+
+  .vote-bar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 0.9em;
+
+    .vote {
+      margin: 1em auto;
+
+      &.upvote,
+      &.downvote {
+        svg {
+          stroke: black;
+        }
+      }
+
+      &.upvote {
+        &:hover {
+          svg {
+            stroke: $primary;
+          }
+        }
+      }
+
+      &.downvote:hover {
+        svg {
+          stroke: $secondary;
+        }
+      }
+    }
+  }
+}

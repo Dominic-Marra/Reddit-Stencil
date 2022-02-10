@@ -1,0 +1,211 @@
+:host {
+  display: block;
+  font-family: $font;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  height: 3em;
+  padding: 0.5em;
+  border-bottom: 1px solid #edeff1;
+
+  .home-link {
+    height: 100%;
+
+    svg {
+      width: auto;
+      height: 100%;
+
+      &:first-child {
+        padding-right: 0.5em;
+      }
+
+      &:nth-child(2) {
+        display: none;
+      }
+    }
+  }
+
+  .search-form {
+    flex: 1;
+    max-width: 35em;
+    height: 100%;
+    margin: 0 0.5em;
+
+    .search-wrapper {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      height: inherit;
+
+      i {
+        position: absolute;
+        top: 0;
+        left: 0.5em;
+        display: flex;
+        align-items: center;
+        height: 100%;
+
+        svg {
+          width: auto;
+          height: 65%;
+          stroke: rgba($color: #000000, $alpha: 0.5);
+        }
+      }
+
+      input {
+        @include reddit-input;
+        box-sizing: border-box;
+        width: 100%;
+        height: inherit;
+        padding-left: calc(1em + 24px);
+      }
+    }
+  }
+
+  .account-buttons {
+    height: 100%;
+
+    .login {
+      display: none;
+    }
+
+    .sign-up {
+      display: none;
+    }
+
+    .user-dropdown {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      margin-left: 0.5em;
+      background-color: transparent;
+      border: none;
+      border: 1px solid transparent;
+      border-radius: 0.25em;
+
+      &:focus,
+      &:active,
+      &:focus-within,
+      &:hover {
+        border: 1px solid #1f1f1f;
+        outline: none;
+      }
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      i {
+        height: 80%;
+
+        svg {
+          width: auto;
+          height: 100%;
+          stroke: black;
+        }
+      }
+
+      i.user {
+        svg {
+          opacity: 0.5;
+        }
+      }
+
+      tool-tip {
+        @include reddit-card(#edeff1);
+        overflow: hidden;
+        color: $color;
+        text-align: left;
+        background-color: white;
+        border-radius: 0.5em;
+        box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+
+        ul {
+          margin: 0;
+          padding: 0;
+          list-style: none;
+        }
+
+        h2 {
+          margin: 0;
+          padding: 1em;
+          color: #878a8c;
+          font-size: 1em;
+        }
+
+        a,
+        label {
+          display: block;
+          box-sizing: border-box;
+          width: 13em;
+          padding: 0.75em 1em;
+          font-size: 1.15em;
+        }
+
+        a:hover {
+          color: white;
+          background-color: $secondary;
+        }
+
+        .login-link {
+          position: relative;
+          margin-top: 1px;
+
+          &::before {
+            position: absolute;
+            top: -1px;
+            left: 50%;
+            width: 80%;
+            height: 1px;
+            background-color: #edeff1;
+            transform: translateX(-50%);
+            content: '';
+          }
+        }
+      }
+    }
+  }
+
+  @media screen and (min-width: 35em) {
+    .account-buttons {
+      display: flex;
+      width: auto;
+
+      button:not(.user-dropdown) {
+        box-sizing: border-box;
+        width: 7em;
+        height: 100%;
+      }
+
+      .login {
+        @include reddit-button(transparent, $secondary);
+        display: block;
+      }
+
+      .sign-up {
+        @include reddit-button();
+        display: block;
+        margin-left: 0.5em;
+      }
+    }
+  }
+
+  @media screen and (min-width: 65em) {
+    .home-link {
+      display: flex;
+      align-items: center;
+
+      svg {
+        &:nth-child(2) {
+          display: inline-block;
+          height: 60%;
+        }
+      }
+    }
+  }
+}

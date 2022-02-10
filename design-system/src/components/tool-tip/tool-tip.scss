@@ -1,0 +1,16 @@
+:host {
+  position: fixed;
+  display: block;
+}
+
+:host(:not(.bottom):not(.top)) {
+  visibility: hidden;
+}
+
+// :host(.bottom)::after {
+//   top: 0;
+// }
+
+// :host(.top)::after {
+//   bottom: 0;
+// }

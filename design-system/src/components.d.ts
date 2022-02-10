@@ -5,10 +5,28 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { Post } from "./global/models/post.model";
+import { TrendingPost } from "./global/models/trending-post";
 export namespace Components {
     interface MyComponent {
         "first"?: string;
         "last"?: string;
+    }
+    interface NavBar {
+    }
+    interface PostCard {
+        /**
+          * The post data for the post card
+         */
+        "post": Post;
+    }
+    interface ToolTip {
+        "base": HTMLElement;
+        "horizontalPos": 'left' | 'center' | 'right';
+        "verticalPos": 'top' | 'bottom' | 'auto';
+    }
+    interface TrendingCard {
+        "post": TrendingPost;
     }
 }
 declare global {
@@ -18,8 +36,36 @@ declare global {
         prototype: HTMLMyComponentElement;
         new (): HTMLMyComponentElement;
     };
+    interface HTMLNavBarElement extends Components.NavBar, HTMLStencilElement {
+    }
+    var HTMLNavBarElement: {
+        prototype: HTMLNavBarElement;
+        new (): HTMLNavBarElement;
+    };
+    interface HTMLPostCardElement extends Components.PostCard, HTMLStencilElement {
+    }
+    var HTMLPostCardElement: {
+        prototype: HTMLPostCardElement;
+        new (): HTMLPostCardElement;
+    };
+    interface HTMLToolTipElement extends Components.ToolTip, HTMLStencilElement {
+    }
+    var HTMLToolTipElement: {
+        prototype: HTMLToolTipElement;
+        new (): HTMLToolTipElement;
+    };
+    interface HTMLTrendingCardElement extends Components.TrendingCard, HTMLStencilElement {
+    }
+    var HTMLTrendingCardElement: {
+        prototype: HTMLTrendingCardElement;
+        new (): HTMLTrendingCardElement;
+    };
     interface HTMLElementTagNameMap {
         "my-component": HTMLMyComponentElement;
+        "nav-bar": HTMLNavBarElement;
+        "post-card": HTMLPostCardElement;
+        "tool-tip": HTMLToolTipElement;
+        "trending-card": HTMLTrendingCardElement;
     }
 }
 declare namespace LocalJSX {
@@ -27,8 +73,28 @@ declare namespace LocalJSX {
         "first"?: string;
         "last"?: string;
     }
+    interface NavBar {
+    }
+    interface PostCard {
+        /**
+          * The post data for the post card
+         */
+        "post"?: Post;
+    }
+    interface ToolTip {
+        "base"?: HTMLElement;
+        "horizontalPos"?: 'left' | 'center' | 'right';
+        "verticalPos"?: 'top' | 'bottom' | 'auto';
+    }
+    interface TrendingCard {
+        "post"?: TrendingPost;
+    }
     interface IntrinsicElements {
         "my-component": MyComponent;
+        "nav-bar": NavBar;
+        "post-card": PostCard;
+        "tool-tip": ToolTip;
+        "trending-card": TrendingCard;
     }
 }
 export { LocalJSX as JSX };
@@ -36,6 +102,10 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
+            "nav-bar": LocalJSX.NavBar & JSXBase.HTMLAttributes<HTMLNavBarElement>;
+            "post-card": LocalJSX.PostCard & JSXBase.HTMLAttributes<HTMLPostCardElement>;
+            "tool-tip": LocalJSX.ToolTip & JSXBase.HTMLAttributes<HTMLToolTipElement>;
+            "trending-card": LocalJSX.TrendingCard & JSXBase.HTMLAttributes<HTMLTrendingCardElement>;
         }
     }
 }
