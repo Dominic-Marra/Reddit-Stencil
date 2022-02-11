@@ -1,0 +1,102 @@
+:host {
+  display: block;
+  height: 100%;
+  background-color: #dae0e6;
+}
+
+main {
+  max-width: 65em;
+  min-height: 100vh;
+  margin: 3em auto 0;
+  padding: 1em;
+  color: $color;
+  font-family: $font;
+  line-height: 1.6;
+}
+
+section {
+  margin-bottom: 1.5em;
+}
+
+.nav-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  width: 100%;
+}
+
+.section-title {
+  font-weight: 500;
+  font-size: 0.9em;
+}
+
+.trending-posts {
+  .trending-posts-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: 12em;
+    overflow: hidden;
+
+    .trending-post {
+      box-sizing: border-box;
+      width: 100%;
+      height: 100%;
+    }
+
+    @media screen and (min-width: 31em) {
+      .trending-post {
+        box-sizing: border-box;
+        width: calc(50% - 1em);
+        height: 100%;
+      }
+
+      .trending-post:not(:last-of-type) {
+        margin-right: 1em;
+      }
+    }
+
+    @media screen and (min-width: 44em) {
+      .trending-post {
+        width: calc((100% / 3) - 1em);
+      }
+    }
+
+    @media screen and (min-width: 60em) {
+      .trending-post {
+        width: calc(25% - 1em);
+      }
+    }
+  }
+}
+
+.posts {
+  .posts-wrapper {
+    margin-top: 1em;
+
+    .post {
+      margin-bottom: -1px;
+    }
+
+    &.card {
+      .post:not(:last-of-type) {
+        margin-bottom: 1.5em;
+      }
+    }
+
+    &:not(.card) {
+      .post:first-of-type {
+        border-radius: 0.25em 0.25em 0 0;
+      }
+
+      .post:last-of-type {
+        border-radius: 0 0 0.25em 0.25em;
+      }
+
+      .post:not(:first-of-type):not(:last-of-type) {
+        border-radius: 0;
+      }
+    }
+  }
+}

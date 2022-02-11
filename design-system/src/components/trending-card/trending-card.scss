@@ -1,11 +1,13 @@
 :host {
   display: block;
+  height: 100%;
 }
 
 a {
   position: relative;
   display: flex;
   flex-direction: column;
+  height: 100%;
   overflow: hidden;
   color: white;
   font-family: $font;
@@ -13,6 +15,8 @@ a {
   border-radius: 0.5em;
 
   figure {
+    display: flex;
+    height: 100%;
     margin: 0;
     padding: 1em;
 

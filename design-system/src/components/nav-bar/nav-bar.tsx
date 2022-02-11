@@ -1,4 +1,4 @@
-import { Component, h, Host } from '@stencil/core';
+import { Component, Event, EventEmitter, h, Host } from '@stencil/core';
 
 import DropdownIcon from '../../assets/icons/chevron-down.svg';
 import SearchIcon from '../../assets/icons/search.svg';
@@ -10,6 +10,9 @@ import UserIcon from '../../assets/icons/user.svg';
   shadow: true,
 })
 export class NavBar {
+  @Event() search: EventEmitter<string>;
+  private debounce: number = null;
+
   displayAccountOptions(base: HTMLElement) {
     const optionsContainer = document.createElement('tool-tip') as any;
     optionsContainer.base = base;
@@ -45,6 +48,17 @@ export class NavBar {
     base.addEventListener('blur', removeAccountOptions);
   }
 
+  emitInput(value: string) {
+    if (this.debounce !== null) {
+      clearTimeout(this.debounce);
+      this.debounce = null;
+    }
+
+    this.debounce = window.setTimeout(() => {
+      this.search.emit(value);
+    }, 500);
+  }
+
   render() {
     return (
       <Host>
@@ -75,7 +89,14 @@ export class NavBar {
           <form class="search-form" action="/">
             <div class="search-wrapper">
               <i innerHTML={SearchIcon}></i>
-              <input type="text" id="search" aria-label="Search Reddit" placeholder="Search Reddit" name="search" />
+              <input
+                onInput={(e) => this.emitInput((e.currentTarget as HTMLInputElement).value)}
+                type="text"
+                id="search"
+                aria-label="Search Reddit"
+                placeholder="Search Reddit"
+                name="search"
+              />
             </div>
           </form>
 

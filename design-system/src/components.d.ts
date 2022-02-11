@@ -8,6 +8,8 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { Post } from "./global/models/post.model";
 import { TrendingPost } from "./global/models/trending-post";
 export namespace Components {
+    interface FrontPage {
+    }
     interface MyComponent {
         "first"?: string;
         "last"?: string;
@@ -15,10 +17,13 @@ export namespace Components {
     interface NavBar {
     }
     interface PostCard {
+        "mode": 'card' | 'compact' | 'classic';
         /**
           * The post data for the post card
          */
         "post": Post;
+    }
+    interface PostFilter {
     }
     interface ToolTip {
         "base": HTMLElement;
@@ -30,6 +35,12 @@ export namespace Components {
     }
 }
 declare global {
+    interface HTMLFrontPageElement extends Components.FrontPage, HTMLStencilElement {
+    }
+    var HTMLFrontPageElement: {
+        prototype: HTMLFrontPageElement;
+        new (): HTMLFrontPageElement;
+    };
     interface HTMLMyComponentElement extends Components.MyComponent, HTMLStencilElement {
     }
     var HTMLMyComponentElement: {
@@ -48,6 +59,12 @@ declare global {
         prototype: HTMLPostCardElement;
         new (): HTMLPostCardElement;
     };
+    interface HTMLPostFilterElement extends Components.PostFilter, HTMLStencilElement {
+    }
+    var HTMLPostFilterElement: {
+        prototype: HTMLPostFilterElement;
+        new (): HTMLPostFilterElement;
+    };
     interface HTMLToolTipElement extends Components.ToolTip, HTMLStencilElement {
     }
     var HTMLToolTipElement: {
@@ -61,25 +78,34 @@ declare global {
         new (): HTMLTrendingCardElement;
     };
     interface HTMLElementTagNameMap {
+        "front-page": HTMLFrontPageElement;
         "my-component": HTMLMyComponentElement;
         "nav-bar": HTMLNavBarElement;
         "post-card": HTMLPostCardElement;
+        "post-filter": HTMLPostFilterElement;
         "tool-tip": HTMLToolTipElement;
         "trending-card": HTMLTrendingCardElement;
     }
 }
 declare namespace LocalJSX {
+    interface FrontPage {
+    }
     interface MyComponent {
         "first"?: string;
         "last"?: string;
     }
     interface NavBar {
+        "onSearch"?: (event: CustomEvent<string>) => void;
     }
     interface PostCard {
+        "mode"?: 'card' | 'compact' | 'classic';
         /**
           * The post data for the post card
          */
         "post"?: Post;
+    }
+    interface PostFilter {
+        "onNewMode"?: (event: CustomEvent<'card' | 'classic' | 'compact'>) => void;
     }
     interface ToolTip {
         "base"?: HTMLElement;
@@ -90,9 +116,11 @@ declare namespace LocalJSX {
         "post"?: TrendingPost;
     }
     interface IntrinsicElements {
+        "front-page": FrontPage;
         "my-component": MyComponent;
         "nav-bar": NavBar;
         "post-card": PostCard;
+        "post-filter": PostFilter;
         "tool-tip": ToolTip;
         "trending-card": TrendingCard;
     }
@@ -101,9 +129,11 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "front-page": LocalJSX.FrontPage & JSXBase.HTMLAttributes<HTMLFrontPageElement>;
             "my-component": LocalJSX.MyComponent & JSXBase.HTMLAttributes<HTMLMyComponentElement>;
             "nav-bar": LocalJSX.NavBar & JSXBase.HTMLAttributes<HTMLNavBarElement>;
             "post-card": LocalJSX.PostCard & JSXBase.HTMLAttributes<HTMLPostCardElement>;
+            "post-filter": LocalJSX.PostFilter & JSXBase.HTMLAttributes<HTMLPostFilterElement>;
             "tool-tip": LocalJSX.ToolTip & JSXBase.HTMLAttributes<HTMLToolTipElement>;
             "trending-card": LocalJSX.TrendingCard & JSXBase.HTMLAttributes<HTMLTrendingCardElement>;
         }

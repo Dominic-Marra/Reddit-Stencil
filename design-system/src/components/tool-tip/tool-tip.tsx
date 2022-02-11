@@ -23,7 +23,7 @@ export class ToolTip {
     const baseBottom = this.base.getBoundingClientRect().bottom;
 
     const remainingSpaceTop = baseTop - window.scrollY;
-    const topPos = baseTop + elHeight + 'px';
+    const topPos = baseTop - elHeight + 'px';
     const botPos = baseBottom + 'px';
 
     let position = '';

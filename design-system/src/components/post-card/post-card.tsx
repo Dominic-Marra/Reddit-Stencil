@@ -17,6 +17,8 @@ export class PostCard {
   /** The post data for the post card */
   @Prop() post: Post;
 
+  @Prop() mode: 'card' | 'compact' | 'classic' = 'card';
+
   /**
    * Renders a button for the post card'
    *
@@ -65,11 +67,10 @@ export class PostCard {
     return (
       <div class="top-bar">
         <p class="sub">
-          <img src={this.post.sub.icon} alt={`Sub icon for ${this.post.sub.name}`} />
+          {this.mode === 'card' && <img src={this.post.sub.icon} alt={`Sub icon for ${this.post.sub.name}`} />}
           {this.post.sub.name}
         </p>
-        &middot;
-        <p>Posted by {this.post.user.name}</p>
+        <p class="user">&middot; Posted by {this.post.user.name}</p>
         {this.post.awards?.length && this.renderAwards()}
         {this.renderCardButton('sub-btn', 'Join')}
       </div>
@@ -123,7 +124,7 @@ export class PostCard {
 
     tooltip.innerHTML = `
       <img src="${award.icon}"></img>
-      <h2>${award.name}</h2>
+      <h2 class="award-name">${award.name}</h2>
       <p>${award.description}</p>
       <a href="#">How do I award?</a>`;
 
@@ -138,7 +139,7 @@ export class PostCard {
    * @returns
    *    HTMLSectionElement
    */
-  renderArticleBody() {
+  renderPostContent() {
     return (
       <section class={`body ${this.post.type}`}>
         {this.post.body.text && <div innerHTML={this.post.body.text}></div>}
@@ -164,9 +165,9 @@ export class PostCard {
    * @returns
    *    HTMLHeaderElement
    */
-  renderArticleHeader() {
+  renderPostTitle() {
     return (
-      <header class="title">
+      <div class="title">
         <h2>{this.post.title}</h2>
 
         {this.post.tags?.length && (
@@ -176,7 +177,7 @@ export class PostCard {
             ))}
           </ul>
         )}
-      </header>
+      </div>
     );
   }
 
@@ -186,11 +187,11 @@ export class PostCard {
    * @returns
    *    HTMLArticleElement
    */
-  renderArticle() {
+  renderPostArticle() {
     return (
       <article>
-        {this.renderArticleHeader()}
-        {this.renderArticleBody()}
+        {this.renderPostTitle()}
+        {this.renderPostContent()}
       </article>
     );
   }
@@ -199,7 +200,7 @@ export class PostCard {
     return (
       <div class="bottom-bar">
         {this.renderCardButton(
-          null,
+          'bottom-button',
           <Fragment>
             <i innerHTML={CommentIcon}></i>
             {this.post.commentCount} Comments
@@ -216,7 +217,7 @@ export class PostCard {
         )}
 
         {this.renderCardButton(
-          null,
+          'bottom-button',
           <Fragment>
             <i innerHTML={BookMarkIcon}></i>
             Save
@@ -269,12 +270,13 @@ export class PostCard {
   render() {
     return (
       <Host>
-        <section role="link" class="post-card" tabindex={-1}>
+        <section role="link" class={`post-card ${this.mode}`} tabindex={-1}>
           {this.renderVoteBar()}
 
           <div class="left">
+            {this.mode !== 'card' && this.renderPostTitle()}
             {this.renderTopBar()}
-            {this.renderArticle()}
+            {this.mode === 'card' && this.renderPostArticle()}
             {this.renderBottomBar()}
           </div>
         </section>
